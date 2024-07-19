@@ -57,11 +57,33 @@
             echo("========================================== \n");
         }
     }
+
+    function resultGuess()
+    {
+        global $play_count, $correct_guesses, $guess_high, $guess_low;
+        echo("Finished!!\n");
+
+        $percent_correct = number_format(($correct_guesses / $play_count) * 100, 2, '.', '');
+        $percent_high = number_format(($guess_high / $play_count) * 100, 2, '.', '');
+        $percent_low = number_format(($guess_low / $play_count) * 100, 2, '.', '');
+        $total_wrong = $guess_high + $guess_low;
+        // use number_format() for better way to do 2 decimal float
+        $percent_wrong = number_format($percent_low + $percent_high, 2, '.', '');
+
+        echo("You guessed correct for $correct_guesses ($percent_correct%) \n");
+        echo("You guessed wrong for $total_wrong ($percent_wrong%) \n");
+        echo("High guess: $guess_high ($percent_high%) Low guess: $guess_low ($percent_low%) \n");
+
+        if($guess_high > $guess_low)
+        echo("When you guessed wrong, you tend to guess high. \n");
+
+        else if($guess_low > $guess_high)
+        echo("When you guessed wrong, you tend to guess low. \n");
+    }
     
-    while($play_count < 11)
+    while($play_count < 10)
     {
         guessNumber();
     }
-
-    
+    resultGuess();
 ?>
